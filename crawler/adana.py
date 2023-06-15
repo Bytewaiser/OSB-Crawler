@@ -1,17 +1,11 @@
 import requests
-import pandas as pd
 from bs4 import BeautifulSoup
-from urllib3.exceptions import InsecureRequestWarning
-
-# Suppress the warnings from urllib3
-requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-
 
 class AOSBCrawler:
-    def __init__(self, root_url):
+    def __init__(self):
         self.session = requests.session()
         self.session.verify = False
-        self.root_url = root_url
+        self.root_url = "https://www.adanaorganize.org.tr/firmalar/"
 
     def crawl_sector_links(self):
         r = self.session.get(self.root_url)
@@ -76,8 +70,3 @@ class AOSBCrawler:
         return data
 
 
-aosb_url = "https://www.adanaorganize.org.tr/firmalar/"
-crawler = AOSBCrawler(aosb_url)
-data = crawler.crawl_each_sector()
-
-pd.DataFrame(data).to_csv("aosb.csv", index=False)
