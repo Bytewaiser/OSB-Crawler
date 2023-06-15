@@ -3,7 +3,7 @@ import sys
 
 import pandas as pd
 
-from crawler import adana
+from crawler import adana, mersin
 
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
@@ -24,3 +24,7 @@ if __name__ == "__main__":
     if city == "Adana":
         data = adana.AOSBCrawler().crawl_each_sector()
         pd.DataFrame(data).to_csv("data/aosb.csv", index=False)
+    
+    if city == "Mersin":
+        data = mersin.MTOSBCrawler().crawl_each_page()
+        pd.DataFrame(data).to_csv("data/mtosb.csv", index=False)

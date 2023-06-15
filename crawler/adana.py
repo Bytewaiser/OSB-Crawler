@@ -44,13 +44,13 @@ class AOSBCrawler:
             website = ""
 
         d = {
-            "title": title,
-            "url": url,
-            "category": category,
-            "tel": tel,
-            "fax": fax,
-            "mail": mail,
-            "website": website,
+            "Title": title,
+            "Url": url,
+            "Sector": category,
+            "Tel": tel,
+            "Fax": fax,
+            "Email": mail,
+            "Website": website,
         }
         return d
 
