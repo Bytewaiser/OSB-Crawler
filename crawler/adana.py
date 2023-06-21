@@ -7,7 +7,7 @@ class AOSBCrawler:
         self.session.verify = False
         self.root_url = "https://www.adanaorganize.org.tr/firmalar/"
 
-    def crawl_sector_links(self):
+    def __crawl_sector_links(self):
         r = self.session.get(self.root_url)
         if r.status_code == 200:
             soup = BeautifulSoup(r.content, features="lxml")
@@ -25,23 +25,23 @@ class AOSBCrawler:
         try:
             category = info.find("div", class_="geodir-field-post_category").a.text
         except Exception:
-            category = ""
+            category = None
         try:
             tel = info.find("div", class_="geodir-field-phone").text[len("Telefon: ") :]
         except Exception:
-            tel = ""
+            tel = None
         try:
             fax = info.find("div", class_="geodir-field-fax").text[len("Fax: ") :]
         except Exception:
-            fax = ""
+            fax = None
         try:
             mail = info.find("div", class_="geodir-field-email").text[len("Email: ") :]
         except Exception:
-            mail = ""
+            mail = None
         try:
             website = info.find("div", class_="geodir-field-website").a.get("href")
         except Exception:
-            website = ""
+            website = None
 
         d = {
             "Title": title,
@@ -54,8 +54,8 @@ class AOSBCrawler:
         }
         return d
 
-    def crawl_each_sector(self):
-        links = self.crawl_sector_links()
+    def __crawl_each_sector(self):
+        links = self.__crawl_sector_links()
 
         data = []
         for link in links:
@@ -69,4 +69,6 @@ class AOSBCrawler:
                     data.append(self.__parse_each_post(post))
         return data
 
+    def run_crawler(self):
+        return self.__crawl_each_sector()
 

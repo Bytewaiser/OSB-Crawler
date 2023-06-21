@@ -30,7 +30,7 @@ class MTOSBCrawler:
         return d
         
 
-    def crawl_each_page(self, page_count=35):
+    def __crawl_each_page(self, page_count=35):
         data = []
         for page_number in range(1, page_count + 1):
             url = f"{self.root_url}/?SayfaNo={page_number}"
@@ -40,4 +40,7 @@ class MTOSBCrawler:
             for post in posts:
                 data.append(self.__parse_each_post(post))
         return data
+
+    def run_crawler(self):
+        return self.__crawl_each_page()
 
